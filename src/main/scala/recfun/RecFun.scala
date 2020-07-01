@@ -7,11 +7,15 @@ object RecFun extends RecFunInterface {
     for (row <- 0 to 10) {
       for (col <- 0 to row)
         print(s"${pascal(col, row)} ")
-      println()
+      println() }
 
+    println("balance check!")
     print(balance("(just an) example".toList))
+    println()
+    println("Counter Change!")
+    print(countChange(4,List(1,2)))
 
-    }
+
   }
 
   /**
@@ -31,6 +35,7 @@ object RecFun extends RecFunInterface {
    * Exercise 2
    */
   def balance(chars: List[Char]): Boolean = {
+
     var nums = 0
       def or(as: List[Char]) : Int = {
         if (as.head == '(') 1
@@ -54,7 +59,14 @@ object RecFun extends RecFunInterface {
    */
   def countChange(money: Int, coins: List[Int]): Int = {
 
-    }
+      def loop(money:Int, coins: List[Int]):Int = {
+        if (money == 0) 1   // check whether change(money - first coin of list ) is 0 or not
+        else if (money < 0 || coins.isEmpty) 0 // case : money - first coin of list < 0 -> break
+        else loop(money, coins.tail) + loop((money - coins.head), coins) // keep going
+      }
+
+    loop(money, coins)
+  }
 
 
 }
